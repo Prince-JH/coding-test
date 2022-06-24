@@ -13,15 +13,7 @@ async def temp_nonblock():
 
 
 if __name__ == '__main__':
-    nb_start = datetime.now()
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(temp_nonblock())
-    loop.close()
-    nb_end = datetime.now()
+    temp = {'a': 15, 'c': 25, 'e': 55, 'b': 13}
+    print(temp.items())
+    print(sorted(temp.items(), key=lambda x: (-x[1], [0])))
 
-    b_start = datetime.now()
-    temp_block()
-    b_end = datetime.now()
-
-    print("nb:", nb_end - nb_start)
-    print("b", b_end - b_start)
