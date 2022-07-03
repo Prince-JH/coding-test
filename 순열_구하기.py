@@ -1,21 +1,21 @@
-def DFS_pick(L, n, m, cur):
-    print(L, n, m)
-    print(res)
+def DFS(L, n, m):
     if L == m:
-        temp.append(res[:])
+        res.append(sub_res[:])
     else:
         for i in range(0, n):
-            if i + 1 != cur and res[L] == 0:
-                res[L] = i + 1
-                DFS_pick(L + 1, n, m, i + 1)
+            if temp[i] == 0:
+                temp[i] = 1
+                sub_res[L] = i + 1
+                DFS(L + 1, n, m)
+                temp[i] = 0
 
 
 if __name__ == '__main__':
     # main script 에 생성되면 전역변수
     n, m = 3, 3
-    temp = list()
-    res = [0] * m
-    DFS_pick(0, n, m, 0)
-    print(temp)
-    print(len(temp))
+    temp = [0] * m
+    sub_res = [0] * m
+    res = list()
+    DFS(0, n, m)
+    print(res)
 
