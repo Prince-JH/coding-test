@@ -1,17 +1,25 @@
 if __name__ == '__main__':
-    expression = list('352+*9-')
+    expression = list('5+8+6*5-(3+2)-7*3-5+(3+2*3)+(5+3+2-5*2)+3')
     stack = list()
-    res = 0
-    for e in expression:
-        if e.isdigit():
-            stack.append(e)
-        elif e == '+':
-            stack.append(int(stack.pop()) + int(stack.pop()))
-        elif e == '*':
-            stack.append(int(stack.pop()) * int(stack.pop()))
-        elif e == '-':
-            stack.append(-(int(stack.pop()) - int(stack.pop())))
-        elif e == '/':
-            stack.append(int(stack.pop()) / int(stack.pop()))
+    res = ''
+    for i in range(len(expression)):
+        if expression[i].isdigit():
+            res += expression[i]
+            if stack and (stack[-1] == '*' or stack[-1] == '/'):
+                res += stack.pop()
+        elif expression[i] == ')':
+            while stack[-1] != '(':
+                res += stack.pop()
+            stack.pop()
+            res += stack.pop()
+        elif expression[i] == '+' or expression[i] == '-':
+            while stack and stack[-1] != '(':
+                res += stack.pop()
+            stack.append(expression[i])
+        else:
+            stack.append(expression[i])
 
-    print(stack[0])
+    while stack:
+        res += stack.pop()
+
+    print(res)
