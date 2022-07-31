@@ -1,28 +1,16 @@
-import sys
-def DFS(v, n):
-    if v == n - 1:
-        for p in path:
-            print(p, end=' ')
-        print()
+def DFS(v, n, time_limit, score_sum, time_sum):
+    if time_sum > time_limit:
+        return
+    elif v == n:
+        if score_sum > res[0]:
+            res[0] = score_sum
     else:
-        for i in range(n):
-            if matrix[v][i] == 1 and ch[i] == 0:
-                ch[i] = 1
-                # print('ch:', ch)
-                path.append(i + 1)
-                DFS(i, n)
-                ch[i] = 0
-                path.pop()
+        DFS(v + 1, n, time_limit, score_sum + _input[v][0], time_sum + _input[v][1])
+        DFS(v + 1, n, time_limit, score_sum, time_sum)
 
 if __name__ == '__main__':
-    n = 5
-    matrix = [[0] * n for i in range(n)]
-    _input = [[1, 2], [1, 3], [1, 4], [2, 1], [2, 3], [2, 5], [3, 4], [4, 2], [4, 5]]
-    for i in _input:
-        matrix[i[0] - 1][i[1] - 1] = 1
-    print(matrix)
-    path = [1]
-    ch = [0] * n
-    ch[0] = 1
-    DFS(0, n)
-
+    _input = [(10, 5), (25, 12), (15, 8), (6, 3), (7, 4)]
+    time_limit = 20
+    res = [0]
+    DFS(0, len(_input), time_limit, 0, 0)
+    print(res)
