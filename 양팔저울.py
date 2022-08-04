@@ -1,14 +1,26 @@
-def DFS(v, n, score_sum):
+def DFS(v, n):
     if v == n:
-        if score_sum > res[0]:
-            res[0] = score_sum
+        temp = 0
+        for i in range(len(ch)):
+            if ch[i] == 1:
+                temp += weights[i]
+            elif ch[i] == -1:
+                temp -= weights[i]
+        res.add(temp)
     else:
-        DFS(v + _input[v][0], n, score_sum + _input[v][1])
-        DFS(v + 1, n, score_sum)
+        ch[v] = 1
+        DFS(v + 1, n)
+        ch[v] = 0
+        DFS(v + 1, n)
+        ch[v] = -1
+        DFS(v + 1, n)
 
 
 if __name__ == '__main__':
-    _input = [(3, 20), (2, 15), (3, 50), (3, 25), (2, 20), (2, 30), (1, 10)]
-    res = [0]
-    DFS(0, len(_input), 0)
-    print(res)
+    weights = [1152, 835, 1351, 21351, 21353, 5533, 8359, 10350, 101, 108]
+    ch = [0] * len(weights)
+    nums = [i for i in range(1, sum(weights) + 1)]
+    res = set()
+    # print(nums)
+    DFS(0, len(weights))
+    print(len(set(nums) - set(res)))
