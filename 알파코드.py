@@ -8,17 +8,18 @@ def DFS(L, n):
         return
     else:
         for i in range(L, n):
-            print(nums[L: i + 1])
-            if n[L] != '0' and 65 <= int(nums[L: i + 1]) + 64 <= 90:
+            # print(nums[L: i + 1])
+            if nums[L] != '0' and 65 <= int(nums[L: i + 1]) + 64 <= 90:
                 res.append(chr(int(nums[L: i + 1]) + 64))
-                DFS(i + 1)
+                DFS(i + 1, n)
                 res.pop()
 
 
 if __name__ == '__main__':
-    nums = '25114'
+    cnt = 0
+    nums = '115213102'
     n = len(nums)
     temp = list()
     res = list()
     DFS(0, n)
-    print(res)
+    print(cnt)
