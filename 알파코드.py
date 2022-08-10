@@ -9,7 +9,7 @@ def DFS(L, n):
     else:
         for i in range(L, n):
             # print(nums[L: i + 1])
-            if nums[L] != '0' and 65 <= int(nums[L: i + 1]) + 64 <= 90:
+            if nums[L] != '0' and 1 <= int(nums[L: i + 1]) <= 26:
                 res.append(chr(int(nums[L: i + 1]) + 64))
                 DFS(i + 1, n)
                 res.pop()
