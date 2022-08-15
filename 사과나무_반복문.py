@@ -17,6 +17,3 @@ if __name__ == '__main__':
                 cnt += orchard[i][j]
 
     print(cnt)
-
-1, 3
-2, 2
