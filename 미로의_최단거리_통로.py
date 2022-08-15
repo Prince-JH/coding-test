@@ -24,7 +24,8 @@ if __name__ == '__main__':
             for j in range(4):
                 x = temp[0] + dx[j]
                 y = temp[1] + dy[j]
-                if 0 <= x < n and 0 <= y < n and maze[x][y] == 0 and dis[x][y] == -1:
+                if 0 <= x < n and 0 <= y < n and maze[x][y] == 0:
+                    maze[x][y] = 1 # 한 번 지난 곳은 벽으로 만들어버려서 가지 못하도록
                     dis[x][y] = temp_dis + 1
                     queue.append((x, y))
         # print(size)
