@@ -1,3 +1,5 @@
+from collections import deque
+
 if __name__ == '__main__':
     areas = [[6, 8, 2, 6, 2],
              [3, 2, 3, 4, 6],
@@ -14,13 +16,13 @@ if __name__ == '__main__':
         for j in range(n):
             for k in range(n):
                 if areas[j][k] > i and ch[j][k] == 0:
-                    queue = list()
+                    queue = deque()
                     queue.append((j, k))
                     ch[j][k] = 1
                     cnt += 1
                     while queue:
                         # print(i, queue)
-                        temp = queue.pop(0)
+                        temp = queue.popleft()
                         for l in range(4):
                             x = temp[0] + dx[l]
                             y = temp[1] + dy[l]
