@@ -1,13 +1,20 @@
+def change(music):
+    if 'A#' in music:
+        music = music.replace('A#', 'a')
+    if 'F#' in music:
+        music = music.replace('F#', 'f')
+    if 'C#' in music:
+        music = music.replace('C#', 'c')
+    if 'G#' in music:
+        music = music.replace('G#', 'g')
+    if 'D#' in music:
+        music = music.replace('D#', 'd')
+    return music
+
+
 def solution(m, musicinfos):
-    notes = ''
-    idx = 0
-    while idx < len(m):
-        if idx + 1 < len(m) and m[idx + 1] == '#':
-            notes += m[idx].lower()
-            idx += 2
-        else:
-            notes += m[idx]
-            idx += 1
+    notes = change(m)
+    answer = []
 
     for musicinfo in musicinfos:
         info = musicinfo.split(',')
@@ -19,18 +26,18 @@ def solution(m, musicinfos):
         end_min = int(end[1])
         duration = (end_hour - start_hour) * 60 + (end_min - start_min)
         melody = info[3]
+        title = info[2]
+
         sequence = ''
 
-        idx = 0
-        while idx < duration:
-            if melody[(idx + 1) % len(melody)] == '#':
-                sequence += melody[idx % len(melody)].lower()
-                idx += 2
-            else:
-                sequence += melody[idx % len(melody)]
-                idx += 1
-        if notes in sequence:
-            return info[2]
-    return "(None)"
+        converted_melody = change(melody)
 
-print(solution("ABCDEFG", ["12:00,12:14,HELLO,CDEFGAB", "13:00,13:05,WORLD,ABCDEF"]))
+        for i in range(duration):
+            sequence += converted_melody[i % len(converted_melody)]
+
+        if notes in sequence:
+            answer.append([len(answer), duration, title])
+
+    if not answer:
+        return "(None)"
+    return sorted(answer, key=lambda x: (-x[1], x[0]))[0][2]
